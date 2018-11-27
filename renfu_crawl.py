@@ -105,10 +105,40 @@ try:
                     sex) + ",`customer_no`='" + str(t['NO']) + "',`age`=" + str(age) + ",`identify`='" + str(
                     identify) + "',`callphone`='" + str(mobile) + "',`address`='" + str(address) + "',`career`='" + str(
                     career) + "',`nationality`='" + str(nationality) + "',`birthplace`='" + str(birthplace) + "'"
+
                 try:
                     cursor.execute(sql_patient)
                     connection.commit()
                     patient_id = getLastId(cursor)
+
+                    # 获取病史服务
+                    personal_history = t['MEDHISTORY']
+                    obsterical_history = t['MEDHISTORY']
+                    family_history = t['MEDHISTORY']
+                    medical_name = t['MEDHISTORY']['illHis']
+
+                    # 插入既往病史服务
+                    cursor.execute("INSERT INTO `medical_history` SET `medical_name`='" + str(medical_name) + "'")
+                    connection.commit()
+                    medical_history_id = getLastId(cursor)
+
+                    # 插入现病史服务
+                    cursor.execute("INSERT INTO `medical_current` SET `case`='" + str(
+                        t['MEDHISTORY']['ill']) + "',`hospital`='" + str(
+                        t['MEDHISTORY']['treatSite']) + "',`datetime`=" + str(
+                        t['MEDHISTORY']['treatTime']) + ",`content`='" + str(
+                        t['MEDHISTORY']['checkCon']) + "',`method`='" + str(
+                        t['MEDHISTORY']['treatWay']) + "',`medicine`='" + str(t['MEDHISTORY']['medUsed']) + "'")
+                    connection.commit()
+                    medical_current_id = getLastId(cursor)
+
+                    cursor.execute(
+                        "INSERT INTO `base_case` SET `patient_info_id`=" + str(patient_id) + ",`project`='" + str(
+                            t['TASK_REPORT']) + "',`medical_history_id`=" + str(
+                            medical_history_id) + ",`medical_current_id`=" + str(
+                            medical_current_id) + ",`personal_history`='" + personal_history + "',`obsterical_history`='" + str(
+                            obsterical_history) + "',`family_history`='" + str(family_history) + "'")
+                    connection.commit()
                 except:
                     print(sql_patient)
 
@@ -139,9 +169,12 @@ try:
                     cursor.execute(
                         "INSERT INTO `image_info` SET `batch_id`=" + str(batch_id) + ",`patient_info_id`=" + str(
                             result_patient_info['id']) + ",`taketime`=" + str(
-                            get_FileCreateTime(str(int(time.mktime(time.strptime(str(t['COMMIT_TIME']), "%Y/%m/%d %H:%M:%S"))))+"/"+file)) + ",`filepath`='" + str(str(int(time.mktime(time.strptime(str(t['COMMIT_TIME']), "%Y/%m/%d %H:%M:%S"))))) + "/" + str(file) + "'")
+                            get_FileCreateTime(str(int(time.mktime(time.strptime(str(t['COMMIT_TIME']),
+                                                                                 "%Y/%m/%d %H:%M:%S")))) + "/" + file)) + ",`filepath`='" + str(
+                            str(int(
+                                time.mktime(time.strptime(str(t['COMMIT_TIME']), "%Y/%m/%d %H:%M:%S"))))) + "/" + str(
+                            file) + "'")
             reportInfos = content.find('reportinfos')['pdfsrc']
-            # if content.find('reportinfos')['pdfsrc']==
             sql_report = "INSERT INTO `report` SET `patient_info_id`=" + str(
                 result_patient_info['id']) + ",`content`='" + str(content.find('reportinfos')) + "',`filepath`='" + str(
                 reportInfos) + "',`batch_id`=" + str(batch_id)
