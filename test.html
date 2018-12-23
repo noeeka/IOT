@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>部门列表</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/vendor/linearicons/style.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet" href="assets/css/demo.css">
+    <!-- GOOGLE FONTS -->
+
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+    <style>
+        body {
+            font-family: Menlo, Consolas, monospace;
+            color: #444;
+        }
+        .item {
+            cursor: pointer;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        ul {
+            padding-left: 1em;
+            line-height: 1.5em;
+            list-style-type: dot;
+        }
+    </style>
+</head>
+
+<body>
+<!-- WRAPPER -->
+<div id="wrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="brand">
+            <a href="index.html"><img src="assets/img/logo-dark.png" alt="Klorofil Logo"
+                                      class="img-responsive logo"></a>
+        </div>
+        <div class="container-fluid">
+            <div class="navbar-btn">
+                <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+            </div>
+            <form class="navbar-form navbar-left">
+                <div class="input-group">
+                    <input type="text" value="" class="form-control" placeholder="Search dashboard...">
+                    <span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+                </div>
+            </form>
+            <div id="navbar-menu">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+                            <i class="lnr lnr-alarm"></i>
+                            <span class="badge bg-danger">5</span>
+                        </a>
+                        <ul class="dropdown-menu notifications">
+                            <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space
+                                is almost full</a></li>
+                            <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9
+                                unfinished tasks</a></li>
+                            <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report
+                                is available</a></li>
+                            <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting
+                                in 1 hour</a></li>
+                            <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request
+                                has been approved</a></li>
+                            <li><a href="#" class="more">See all notifications</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png"
+                                                                                        class="img-circle" alt="Avatar">
+                            <span>Samuel</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                            <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
+                            <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
+                            <li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                        </ul>
+                    </li>
+                    <!-- <li>
+                        <a class="update-pro" href="#downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+    <!-- LEFT SIDEBAR -->
+    <div id="sidebar-nav" class="sidebar">
+        <div class="sidebar-scroll">
+            <nav>
+                <ul class="nav">
+                    <li><a href="users.html"   class="active"><i class="glyphicon glyphicon-user"></i> <span>用户列表</span></a></li>
+                    <li><a href="role.html"><i class="glyphicon glyphicon-tag"></i> <span>角色管理</span></a></li>
+                    <li><a href="departments.html"><i class="glyphicon glyphicon-tasks"></i> <span>部门管理</span></a></li>
+                    <li><a href="devices.html"><i class="lnr lnr-dice"></i> <span>设备管理</span></a></li>
+                    <li><a href="map.html"><i class="
+glyphicon glyphicon-globe"></i> <span>设备地图</span></a></li>
+                    <li><a href="statistic.html"><i class="glyphicon glyphicon-align-left"></i> <span>信息统计</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END LEFT SIDEBAR -->
+    <!-- MAIN -->
+    <div class="main">
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- TABLE STRIPED -->
+                        <div class="panel">
+                            <div class="panel-body">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMain" style="float:right;clear:both;" >新增</button>
+                                <script type="text/x-template" id="item-template">
+
+                                    <li>
+
+                                        <div :class="{bold: isFolder}">
+                                            {{ model.name }}
+                                            <!--{{model.nodeid}}-->
+                                            <!--{{model.parent_id}}-->
+                                            <span v-if="isFolder"  @click="toggle">[{{ open ? '-' : '+' }}]</span>
+                                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit" v-bind:data-id="model.nodeid" v-bind:data-name="model.name" v-bind:data-parentid="model.parent_id" @click="edit()">编辑</button>-->
+                                            <!--<button type="button" class="btn btn-danger"  data-toggle="modal" v-bind:data-id="model.nodeid" @click="del(model.nodeid)">删除</button>-->
+                                            <!--<button type="button" class="btn btn-success" data-toggle="modal" v-bind:data-parentid="model.parent_id" data-target="#add" @click="add()">添加</button>-->
+                                            <!--<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editLabel">-->
+                                            <!--<div class="modal-dialog" role="document">-->
+                                            <!--<div class="modal-content">-->
+                                            <!--<div class="modal-header">-->
+                                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                                            <!--<h4 class="modal-title" id="editLabel">编辑信息</h4>-->
+                                            <!--</div>-->
+                                            <!--<div class="modal-body">-->
+                                            <!--<form id ="edit-form" action="http://180.76.103.247:8081/backend/index.php?c=department&m=editDepartment" method="post">-->
+                                            <!--<div class="form-group">-->
+                                            <!--<label  class="control-label">部门名称</label>-->
+                                            <!--<input type="text" class="form-control" id="department-name" name="name">-->
+                                            <!--</div>-->
+                                            <!--<div class="form-group">-->
+                                            <!--<label  class="control-label">备注:</label>-->
+                                            <!--<input type="text" class="form-control" id="department-remark" name="remark">-->
+                                            <!--<input type="hidden" id="department-id" name="id">-->
+                                            <!--<input type="hidden" id="department-parentid" name="parentid">-->
+                                            <!--</div>-->
+                                            <!--</form>-->
+
+                                            <!--</div>-->
+                                            <!--<div class="modal-footer">-->
+                                            <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+                                            <!--<button type="button" class="btn btn-primary" id="edit_submit">提交修改</button>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="addLabel">-->
+                                            <!--<div class="modal-dialog" role="document">-->
+                                            <!--<div class="modal-content">-->
+                                            <!--<div class="modal-header">-->
+                                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                                            <!--<h4 class="modal-title" id="exampleModalLabel">部门新增</h4>-->
+                                            <!--</div>-->
+                                            <!--<div class="modal-body">-->
+                                            <!--<form id ="add-form" >-->
+                                            <!--<div class="form-group">-->
+                                            <!--<label  class="control-label">部门名称</label>-->
+                                            <!--<input type="text" class="form-control"  name="name">-->
+                                            <!--</div>-->
+                                            <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<label  class="control-label">上级部门名称</label>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<input type="text" class="form-control" id="department-name" name="name">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                            <!--<div class="form-group">-->
+                                            <!--<label class="control-label">备注:</label>-->
+                                            <!--<input type="text" class="form-control"  name="remark">-->
+                                            <!--<input type="hidden" id="department-parentid" name="parentid">-->
+                                            <!--</div>-->
+                                            <!--</form>-->
+                                            <!--</div>-->
+                                            <!--<div class="modal-footer">-->
+                                            <!--<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+                                            <!--<button type="button" class="btn btn-primary" id="add_submit">确定</button>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="modal fade" id="addMain" tabindex="-1" role="dialog" aria-labelledby="addMainLabel">-->
+                                            <!--<div class="modal-dialog" role="document">-->
+                                            <!--<div class="modal-content">-->
+                                            <!--<div class="modal-header">-->
+                                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                                            <!--<h4 class="modal-title" id="exampleModalLabel">部门新增</h4>-->
+                                            <!--</div>-->
+                                            <!--<div class="modal-body">-->
+                                            <!--<form id ="addMain-form" >-->
+                                            <!--<div class="form-group">-->
+                                            <!--<label  class="control-label">部门名称</label>-->
+                                            <!--<input type="text" class="form-control"  name="name">-->
+                                            <!--</div>-->
+                                            <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<label  class="control-label">上级部门名称</label>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<input type="text" class="form-control" id="department-name" name="name">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                            <!--<div class="form-group">-->
+                                            <!--<label class="control-label">备注:</label>-->
+                                            <!--<input type="text" class="form-control"  name="remark">-->
+                                            <!--&lt;!&ndash;<input type="hidden" id="department-parentid" name="parentid">&ndash;&gt;-->
+                                            <!--</div>-->
+                                            <!--</form>-->
+                                            <!--</div>-->
+                                            <!--<div class="modal-footer">-->
+                                            <!--<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+                                            <!--<button type="button" class="btn btn-primary" id="addMain_submit">确定</button>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                        </div>
+                                        <!--<ul v-show="open">-->
+                                        <!--<item-->
+                                        <!--class="item"-->
+                                        <!--v-for="(model, index) in model.children"-->
+                                        <!--:key="index"-->
+                                        <!--:model="model">-->
+                                        <!--</item>-->
+                                        <!--&lt;!&ndash;<li class="add" >+</li>&ndash;&gt;-->
+                                        <!--</ul>-->
+                                    </li>
+                                </script>
+                                <ul id="tree">
+                                    <item
+                                            class="item"
+                                            :model="treeData">
+                                    </item>
+                                </ul>
+                                <ul class="pagination">
+                                    <!--<li><a href="#">&laquo;</a></li>-->
+                                    <!--<li><a href="#">1</a></li>-->
+                                    <!--<li><a href="#">2</a></li>-->
+                                    <!--<li><a href="#">3</a></li>-->
+                                    <!--<li><a href="#">4</a></li>-->
+                                    <!--<li><a href="#">5</a></li>-->
+                                    <!--<li><a href="#">&raquo;</a></li>-->
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- END TABLE STRIPED -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- END MAIN CONTENT -->
+    </div>
+    <!-- END MAIN -->
+    <div class="clearfix"></div>
+    <footer>
+        <div class="container-fluid">
+            <p class="copyright" v-on:click="onChange">Copyright &copy; 2018.Menlo Tech.</p>
+        </div>
+    </footer>
+</div>
+<!-- END WRAPPER -->
+<!-- Javascript -->
+<script src="assets/vendor/vue/vue.min.js"></script>
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+<script src="assets/vendor/vue/axios.min.js"></script>
+<script src="assets/scripts/klorofil-common.js"></script>
+
+<script>
+    Vue.component('item', {
+        template: '#item-template',
+        props: {
+            model: Object
+        },
+        data: function () {
+            return {
+                open: false
+            }
+        },
+
+
+        computed: {
+            isFolder: function () {
+                return this.model.children &&
+                    this.model.children.length
+            }
+        },
+        methods: {
+            toggle: function () {
+                if (this.isFolder) {
+                    this.open = !this.open
+                }
+            },
+            changeType: function () {
+                if (!this.isFolder) {
+                    Vue.set(this.model, 'children', [])
+                    this.addChild()
+                    this.open = true
+                }
+            },
+            addChild: function () {
+                this.model.children.push({
+                    name: 'new stuff'
+                })
+            },
+            edit:function(){
+                $('#edit').on('show.bs.modal', function (event) {
+                    // alert("1111");
+                    var button = $(event.relatedTarget)
+                    var id = button.data('id')
+                    var name = button.data('name')
+                    var parentid= button.data('parentid')
+                    console.log(id,name,parentid);
+                    var modal = $(this)
+                    modal.find('#department-name').val(name)
+                    modal.find('#deparement-parentid').val(parentid)
+                    modal.find('#department-id').val(id)
+                })
+
+            },
+            del:function(id){
+                $.ajax({
+                    url: 'http://180.76.103.247:8081/backend/index.php?c=department&m=delDepartment',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        id:id
+                    },
+                    success: function(data){
+                        console.log(data);
+                        if(data.state == 0){
+                            alert('删除成功');
+                            location.reload()
+                        }
+                    },
+                    error: function(){
+
+                    }
+                })
+            },
+            add:function(){
+                $('#add').on('show.bs.modal', function (event) {
+                    var button = $(event.relatedTarget)
+                    var parentid= button.data('parentid')
+                    console.log(parentid);
+                    var modal = $(this)
+                    // modal.find('#department-name').val(name)
+                    modal.find('#deparement-parentid').val(parentid)
+                    // modal.find('#department-id').val(id)
+                })
+            },
+            addMain:function(){
+                $('#addMain').on('show.bs.modal', function (event) {
+                    var button = $(event.relatedTarget)
+                    var parentid= button.data('parentid')
+                    console.log(parentid);
+                    var modal = $(this)
+                    // modal.find('#department-name').val(name)
+                    modal.find('#deparement-parentid').val(parentid)
+                    // modal.find('#department-id').val(id)
+                })
+            }
+        }
+    })
+
+    var vm = new Vue({
+        el: '#tree',
+        data: {
+            site: "部门列表",
+            treeData:[]
+
+        },
+        created: function () {
+            let that = this;
+            $.ajax({
+                dataType: "json",
+                url: url + "?c=department&m=departmentList",
+                success: function (data) {
+                    console.log(data.ret);
+var arr=[]
+
+                    for(var i in data.ret){
+                        arr['name']=data.ret[i].name
+                        arr['children']=data.ret[i].children
+                    }
+
+                    that.treeData=arr;
+                    // console.log(that.treeData);
+                    // console.log(response.data);
+                }
+            });
+
+        },
+    });
+
+    $(document).ready(function () {
+        // $('#edit').on('show.bs.modal', function (event) {
+        //     alert("1111");
+        //     var button = $(event.relatedTarget)
+        //     var id = button.data('id')
+        //     var name = button.data('name')
+        //     var parentid= button.data('parentid')
+        //     consoel.log(id,name,parentid);
+        //     var modal = $(this)
+        //     modal.find('#department-name').val(name)
+        //     modal.find('#deparement-parentid').val(parentid)
+        //     modal.find('#department-id').val(id)
+        // })
+        $('body').on('click',"#edit_submit",function () {
+            // alert("111");
+            var name = $('#department-name').val();
+            var id = $('#department-id').val();
+            var parentid = $('#department-parentid').val();
+            console.log(name);
+            console.log(id);
+            console.log(parentid);
+            $.ajax({
+                url: 'http://180.76.103.247:8081/backend/index.php?c=department&m=editDepartment',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    name:name,
+                    id:id,
+                    parentid:parentid
+                },
+                success: function(data){
+                    console.log(data);
+                    if(data.state == 0){
+                        alert('修改成功');
+                        location.reload()
+                    }
+                },
+                error: function(){
+
+                }
+            })
+        })
+
+        $('body').on('click','#add_submit',function () {
+            var name = $('#add-form input[name="name"]').val();
+            var parentid = $('#department-parentid').val();
+            var remark = $('#add-form input[name="remark"]').val();
+            console.log(name,remark);
+            $.ajax({
+                url: 'http://180.76.103.247:8081/backend/index.php?c=department&m=addDepartment',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    name:name,
+                    parentid:parentid,
+                    remark:remark,
+                },
+                success: function(data){
+                    console.log(data);
+                    if(data.state == 0){
+                        alert('新增成功');
+                        location.reload()
+                    }
+                },
+                error: function(){
+
+                }
+            })
+        })
+
+        $('body').on('click','#addMain_submit',function () {
+            // var name = $('#add-form input[name="name"]').val();
+            // var parentid = $('#department-parentid').val();
+            // var remark = $('#add-form input[name="remark"]').val();
+            // console.log(name,remark);
+            $.ajax({
+                url: 'http://180.76.103.247:8081/backend/index.php?c=department&m=addDepartment',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    // name:name,
+                    parentid:0
+                    // remark:remark,
+                },
+                success: function(data){
+                    console.log(data);
+                    if(data.state == 0){
+                        alert('新增成功');
+                        location.reload()
+                    }
+                },
+                error: function(){
+
+                }
+            })
+        })
+    })
+</script>
+</body>
+
+
+<script>
+
+</script>
+</html>

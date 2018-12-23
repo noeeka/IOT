@@ -1,4 +1,4 @@
-url='http://192.168.139.128/jinggai/backend/'
+url='http://180.76.103.247:8081/backend/'
 $(document).ready(function() {
 
 	/*-----------------------------------/
@@ -235,5 +235,16 @@ $.fn.clickToggle = function( f1, f2 ) {
 	});
 
 }
+
+
+$(function (){
+	$('.nav li').click(function (){
+		//把之前已有的active去掉
+		$('.active').removeClass('active');
+		//当前点击的li加上class
+		$(this).addClass("active");
+
+	});
+})
 
 

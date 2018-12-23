@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>用户列表</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/vendor/linearicons/style.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet" href="assets/css/demo.css">
+    <!-- GOOGLE FONTS -->
+
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap-treeview.css">
+</head>
+
+<body>
+<!-- WRAPPER -->
+<div id="wrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="brand">
+            <a href="index.html"><img src="assets/img/logo-dark.png" alt="Klorofil Logo"
+                                      class="img-responsive logo"></a>
+        </div>
+        <div class="container-fluid">
+            <div class="navbar-btn">
+                <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+            </div>
+            <form class="navbar-form navbar-left">
+                <div class="input-group">
+                    <input type="text" value="" class="form-control" placeholder="Search dashboard...">
+                    <span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+                </div>
+            </form>
+            <div id="navbar-menu">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+                            <i class="lnr lnr-alarm"></i>
+                            <span class="badge bg-danger">5</span>
+                        </a>
+                        <ul class="dropdown-menu notifications">
+                            <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space
+                                is almost full</a></li>
+                            <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9
+                                unfinished tasks</a></li>
+                            <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report
+                                is available</a></li>
+                            <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting
+                                in 1 hour</a></li>
+                            <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request
+                                has been approved</a></li>
+                            <li><a href="#" class="more">See all notifications</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png"
+                                                                                        class="img-circle" alt="Avatar">
+                            <span>Samuel</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                            <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
+                            <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
+                            <li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                        </ul>
+                    </li>
+                    <!-- <li>
+                        <a class="update-pro" href="#downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+    <!-- LEFT SIDEBAR -->
+    <div id="sidebar-nav" class="sidebar">
+        <div class="sidebar-scroll">
+            <nav>
+                <ul class="nav">
+                    <!--<li><a href="index.html" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>-->
+                    <!--<li><a href="elements.html" class=""><i class="lnr lnr-code"></i> <span>Elements</span></a></li>-->
+                    <!--<li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a></li>-->
+                    <!--<li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Panels</span></a></li>-->
+                    <!--<li><a href="notifications.html" class=""><i class="lnr lnr-alarm"></i>-->
+                    <!--<span>Notifications</span></a></li>-->
+                    <!--<li>-->
+                    <!--<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i>-->
+                    <!--<span>Pages</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>-->
+                    <!--<div id="subPages" class="collapse ">-->
+                    <!--<ul class="nav">-->
+                    <!--<li><a href="page-profile.html" class="">Profile</a></li>-->
+                    <!--<li><a href="page-login.html" class="">Login</a></li>-->
+                    <!--<li><a href="page-lockscreen.html" class="">Lockscreen</a></li>-->
+                    <!--</ul>-->
+                    <!--</div>-->
+                    <!--</li>-->
+                    <li><a href="tables.html" class="active"><i class="lnr lnr-dice"></i> <span>设备列表</span></a></li>
+                    <!--<li><a href="typography.html" class=""><i class="lnr lnr-text-format"></i>-->
+                    <!--<span>Typography</span></a></li>-->
+                    <!--<li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Icons</span></a></li>-->
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END LEFT SIDEBAR -->
+    <!-- MAIN -->
+    <div class="main">
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- TABLE STRIPED -->
+                        <div class="panel">
+                            <div class="panel-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>用户姓名</th>
+                                        <th>所属部门</th>
+                                        <th>角色</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="user in users">
+                                        <td>{{ user.id }}</td>
+                                        <td>{{ user.name }}</td>
+                                        <td>{{ user.department }}</td>
+                                        <td>{{ user.role }}</td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="operation">
+                                                <button type="button" class="btn btn-default" data-toggle="modal"
+                                                        data-target="#editModal"
+                                                        v-bind:data-name="user.name"
+                                                        v-bind:data-id="user.id"
+                                                        v-bind:data-department="user.department"
+                                                        v-bind:data-role="user.role"
+                                                        v-bind:data-role_id="user.role_id"
+                                                        v-bind:data-department_id="user.department_id"
+                                                >编辑
+                                                </button>
+                                                <button type="button" class="btn btn-danger">删除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+                                     aria-labelledby="editModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close"><span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <h4 class="modal-title" id="exampleModalLabel">编辑用户</h4>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <div class="form-group">
+                                                    <label for="name" class="control-label">用户姓名:</label>
+                                                    <input type="text" class="form-control" id="name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="department" class="control-label">所属部门:</label>
+                                                    <input type="text" id="department" class="form-control" value=""
+                                                           onclick="$('#treeview').show()" placeholder="分类名称"/>
+                                                    <div id="treeview" style="display: none;"></div>
+
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="department" class="control-label">角色:</label>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-default dropdown-toggle" type="button" id="role" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                            Dropdown
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id ="role-select">
+                                                            <!--<li><a href="#">Action</a></li>-->
+                                                            <!--<li><a href="#">Another action</a></li>-->
+                                                            <!--<li><a href="#">Something else here</a></li>-->
+                                                            <!--<li><a href="#">Separated link</a></li>-->
+                                                        </ul>
+                                                    </div>
+
+                                                    <!--<input type="text" id="role" class="form-control" value=""-->
+                                                           <!--placeholder="分类名称"/>-->
+                                                    <!--<div id="role-list" style="display: block;">-->
+                                                        <!--<ul class="list-group" v-for="role in roles">-->
+                                                            <!--<li class="list-group-item">{{role.name}}</li>-->
+                                                            <!--&lt;!&ndash;<li class="list-group-item">免费域名注册</li>&ndash;&gt;-->
+                                                            <!--&lt;!&ndash;<li class="list-group-item">免费 Window 空间托管</li>&ndash;&gt;-->
+                                                            <!--&lt;!&ndash;<li class="list-group-item">图像的数量</li>&ndash;&gt;-->
+                                                            <!--&lt;!&ndash;<li class="list-group-item">24*7 支持</li>&ndash;&gt;-->
+                                                            <!--&lt;!&ndash;<li class="list-group-item">每年更新成本</li>&ndash;&gt;-->
+                                                        <!--</ul>-->
+                                                    <!--</div>-->
+                                                </div>
+
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                        关闭
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary" id="update-button">修改</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="pagination">
+                                        <!--<li><a href="#">&laquo;</a></li>-->
+                                        <!--<li><a href="#">1</a></li>-->
+                                        <!--<li><a href="#">2</a></li>-->
+                                        <!--<li><a href="#">3</a></li>-->
+                                        <!--<li><a href="#">4</a></li>-->
+                                        <!--<li><a href="#">5</a></li>-->
+                                        <!--<li><a href="#">&raquo;</a></li>-->
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- END TABLE STRIPED -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- END MAIN CONTENT -->
+        </div>
+        <!-- END MAIN -->
+        <div class="clearfix"></div>
+        <footer>
+            <div class="container-fluid">
+                <p class="copyright" v-on:click="onChange">Copyright &copy; 2018.Menlo Tech.</p>
+            </div>
+        </footer>
+    </div>
+    <!-- END WRAPPER -->
+    <!-- Javascript -->
+    <script src="assets/vendor/vue/vue.min.js"></script>
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script src="assets/vendor/vue/axios.min.js"></script>
+    <script src="assets/scripts/klorofil-common.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap-treeview.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#wrapper',
+            data: {
+                site: "设备列表",
+                users: [],
+                roles: []
+            },
+            created: function () {
+                let that = this
+                axios.get(url + "?c=user&m=userList", {}).then(function (response) {
+                    console.log(response);
+                    that.users = response.data.ret;
+                    if (response.data.pageSize == 1) {
+                        $(".pagination").hide();
+                    } else {
+                        for (var page = 1; page < response.data.pageSize; page++) {
+                            $(".pagination").append('<li><a href="#">' + page + '</a></li>')
+                        }
+                    }
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            methods: {
+                onChange: function () {
+                    alert("'ddddd");
+                }
+            }
+        })
+        $(document).ready(function () {
+            var name = '';
+            var role_id = 0;
+            var department_id = 0;
+            $('#editModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget)
+                var modal = $(this)
+                modal.find("#name").val(button.data('name'))
+                modal.find("#department").val(button.data('department'))
+                modal.find("#role").html(button.data('role')+'<span class="caret"></span>')
+
+            })
+            $("#department").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "?c=department&m=departmentListForUser",
+                    success: function (data) {
+                        console.log(data)
+                        if (data.state == 0) {
+                            $('#treeview').treeview({data: data.ret});
+                        }
+                        $.ajax({
+                            type: "GET",
+                            url: url + "?c=department&m=departmentListForUser",
+                            success: function (data) {
+                                var k =$('.list-group').find('li');
+                                for ( j in k ){
+                                    k.eq(j).attr('data-nodeid',data.ret[j].nodeid)
+                                }
+                            },
+                            dataType:'json',
+                        });
+                        $('#treeview').on('click','li',function(){
+                            $('#department').val($(this).text());
+                            department_id = $(this).attr('data-nodeid');
+                            $('#treeview').hide();
+                        });
+                    },
+                    dataType:'json',
+                });
+            });
+            $("#role").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "?c=role&m=rolelist",
+                    success: function (data) {
+                        console.log(data);
+                        if (data.state == 0) {
+                            var select = $("#role-select");
+                            html = '';
+                            for (var i = 0; i < data.ret.length; i++) {
+                               html += "<li data-id = '"+data.ret[i].id+"'><a href='#'>"
+                                + data.ret[i].name + "</a></li>";
+                            }
+                            $("#role-select").html(html);
+                            $('#role-select li').on('click',function () {
+                                $("#role").html($(this).text()+'<span class="caret"></span>')
+                                role_id = $(this).attr('data-id');
+                            })
+
+                        }
+                    },
+                    dataType:'json',
+                });
+            });
+            $('#update-button').on('click',function () {
+                console.log('role_id:'+role_id+'   department_id:'+department_id);
+            })
+            // console.log('role_id:'+role_id+'   department_id:'+department_id);
+            // $('#role-select li').on('click',function () {
+            //     alert(111)
+            //     // alert($(this).parent().attr('data-id'));
+            // })
+
+
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>设备列表</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/vendor/linearicons/style.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet" href="assets/css/demo.css">
+    <!-- GOOGLE FONTS -->
+
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+    <style>
+        .table>tbody>tr>td{
+            vertical-align:middle;
+        }
+    </style>
+</head>
+
+<body>
+<!-- WRAPPER -->
+<div id="wrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="brand" style="padding:0px 30px;">
+            <a href="index.html"><img src="assets/img/logo.jpg" alt="Klorofil Logo"
+                                      class="img-responsive logo" style="width:200px;height:75px;"></a>
+        </div>
+        <div class="container-fluid">
+            <div class="navbar-btn">
+                <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+            </div>
+            <div id="navbar-menu">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png"
+                                                                                        class="img-circle" alt="Avatar">
+                            <span>{{user_info.name}}</span>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+    <!-- LEFT SIDEBAR -->
+    <div id="sidebar-nav" class="sidebar">
+        <div class="sidebar-scroll">
+            <nav>
+                <ul class="nav">
+                    <li v-if="user_info.privilege ==1"><a href="users.html"><i class="glyphicon glyphicon-user"></i> <span>用户列表</span></a></li>
+                    <li v-if="user_info.privilege ==1"><a href="role.html"  class="active"><i class="glyphicon glyphicon-tag"></i> <span>角色管理</span></a></li>
+                    <li v-if="user_info.privilege ==1"><a href="departments.html"><i class="glyphicon glyphicon-tasks"></i> <span>部门管理</span></a></li>
+                    <li><a ><i class="lnr lnr-dice"></i> <span>智能井盖</span></a>
+                        <ul class="nav">
+                            <li><a href="devices.html"><i class="lnr lnr-dice"></i> <span>设备管理</span></a></li>
+                            <li><a href="map.html"><i class="glyphicon glyphicon-globe"></i> <span>设备地图</span></a></li>
+                            <li><a href="statistic.html"><i class="glyphicon glyphicon-align-left"></i> <span>信息统计</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a ><i class="lnr lnr-dice"></i> <span>智能光交箱</span></a>
+                        <ul class="nav">
+                            <li><a ><i class="lnr lnr-dice"></i> <span>信息概览</span></a></li>
+                            <li><a ><i class="glyphicon glyphicon-globe"></i> <span>光交箱电子地图</span></a></li>
+                            <li><a ><i class="glyphicon glyphicon-align-left"></i> <span>光交箱报警日志</span></a></li>
+                            <li><a ><i class="glyphicon glyphicon-align-left"></i> <span>光交箱操作管理</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a ><i class="lnr lnr-dice"></i> <span>智能门禁</span></a>
+                        <ul class="nav">
+                            <li><a ><i class="lnr lnr-dice"></i> <span>信息概览</span></a></li>
+                            <li><a ><i class="glyphicon glyphicon-align-left"></i> <span>门禁报警日志</span></a></li>
+                            <li><a ><i class="glyphicon glyphicon-align-left"></i> <span>门禁操作管理</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a ><i class="lnr lnr-dice"></i> <span>远程抄表</span></a>
+                        <ul class="nav">
+                            <li><a ><i class="lnr lnr-dice"></i> <span>信息概览</span></a></li>
+                            <li><a ><i class="glyphicon glyphicon-align-left"></i> <span>抄表操作管理</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END LEFT SIDEBAR -->
+    <!-- MAIN -->
+    <div class="main">
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- TABLE STRIPED -->
+                        <div class="panel">
+                            <div class="panel-body">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRole" style="float:right;clear:both;" >新增</button>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>角色ID</th>
+                                        <th>角色名称</th>
+                                        <th>备注</th>
+                                        <th>操作
+
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="role in roles">
+                                        <td>{{ role.id }}</td>
+                                        <td>{{ role.name }}</td>
+                                        <td>{{ role.remark }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editRole" v-bind:data-id=" role.id" v-bind:data-name="role.name" v-bind:data-remark="role.remark" >修改</button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal"   data-target="#removeModal"   v-bind:data-id=" role.id" >删除</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <ul class="pagination">
+                                    <!--<li><a href="#">&laquo;</a></li>-->
+                                    <!--<li><a href="#">1</a></li>-->
+                                    <!--<li><a href="#">2</a></li>-->
+                                    <!--<li><a href="#">3</a></li>-->
+                                    <!--<li><a href="#">4</a></li>-->
+                                    <!--<li><a href="#">5</a></li>-->
+                                    <!--<li><a href="#">&raquo;</a></li>-->
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- END TABLE STRIPED -->
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="removeModalLabel">确定要删除此角色吗</h4>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group" style="text-align: center; margin-top: 10px; font-size: medium;">
+                                <label for="role-name" class="control-label" >您确定要删除此角色吗</label>
+                                <input type="hidden" class="form-control" id="remove_id">
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="remove_btn">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MAIN CONTENT -->
+    </div>
+    <!-- END MAIN -->
+    <div class="clearfix"></div>
+    <footer>
+        <div class="container-fluid">
+            <p class="copyright" v-on:click="onChange">Copyright &copy; 2018.Menlo Tech.</p>
+        </div>
+    </footer>
+    <div class="modal fade" id="editRole" tabindex="-1" role="dialog" aria-labelledby="editRoleLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">角色修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form id ="edit-form" action="http://180.76.103.247:8081/backend/index.php?c=role&m=editrole" method="post">
+                        <div class="form-group">
+                            <label for="role-name" class="control-label">角色名:</label>
+                            <input type="text" class="form-control" id="role-name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="role-remark" class="control-label">备注:</label>
+                            <input type="text" class="form-control" id="role-remark" name="remark">
+                            <input type="hidden" id="role-id" name="id">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="edit-form-submit" data-toggle="modal" data-target="#exampleModal" >修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addRole" tabindex="-1" role="dialog" aria-labelledby="addRoleLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">角色新增</h4>
+                </div>
+                <div class="modal-body">
+                    <form id ="add-form" >
+                        <div class="form-group">
+                            <label for="role-name" class="control-label">角色名:</label>
+                            <input type="text" class="form-control"  name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="role-remark" class="control-label">备注:</label>
+                            <input type="text" class="form-control"  name="remark">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                    <button type="button" class="btn btn-primary" id="add-form-submit">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    //弹出框
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">提示</h4>
+                </div>
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">修改失败！！！</label>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- END WRAPPER -->
+<!-- Javascript -->
+<script src="assets/vendor/vue/vue.min.js"></script>
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+<script src="assets/vendor/vue/axios.min.js"></script>
+<script src="assets/scripts/klorofil-common.js"></script>
+<script>
+
+    var vm = new Vue({
+        el: '#wrapper',
+        data: {
+            site: "角色列表",
+            roles: [],
+            user_info: []
+        },
+        created: function () {
+            let that = this
+            axios.get('http://180.76.103.247:8081/backend/index.php?c=Role&m=roleList&rpp=20&page=1', {}).then(function (response) {
+                console.log(response.data);
+                that.roles = response.data.ret;
+                // if (response.data.ret.length < 20) {
+                //     $(".pagination").hide();
+                // } else {
+                //     for (var page = 1; page < response.data.pageSize; page++) {
+                //         $(".pagination").append('<li><a href="#">' + page + '</a></li>')
+                //     }
+                // }
+
+                // console.log(response.data);
+            })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            axios.get(url + "?c=user&m=getuser", {}).then(function (response) {
+                console.log(response);
+                that.user_info = response.data.ret;
+
+            })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        methods: {
+            onChange:function(){
+                alert("'ddddd");
+            },
+            del:function (id) {
+                $.ajax({
+                    url: 'http://180.76.103.247:8081/backend/index.php?c=role&m=deleterole',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        id:id
+                    },
+                    success: function(data){
+                        console.log(data);
+                        if(data.state == 0){
+                            alert('删除成功');
+                            location.reload()
+                        }
+                    },
+                    error: function(){
+
+                    }
+                })
+            }
+
+
+        }
+    })
+    $(document).ready(function () {
+        $('#removeModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var id = button.data('id') // Extract info from data-* attributes
+            $("#remove_id").val(id)
+        })
+        $("body").on("click","#remove_btn",function () {
+            $.ajax({
+                type: "post",
+                url: url + "?c=role&m=deleterole",
+                data: {
+                    id:$("#remove_id").val(),
+                },
+                success: function (data) {
+                    if (data.state == 0) {
+                        alert('删除成功')
+                        location.reload()
+                    }
+                },
+                dataType:'json',
+            });
+        })
+        $('#editRole').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var role_id = button.data('id')
+            var role_name = button.data('name')
+            var role_remark = button.data('remark')
+            var modal = $(this)
+            modal.find('#role-name').val(role_name)
+            modal.find('#role-remark').val(role_remark)
+            modal.find('#role-id').val(role_id)
+        })
+        $('#edit-form-submit').on('click',function () {
+            var name = $('#role-name').val();
+            var remark = $('#role-remark').val();
+            var id = $('#role-id').val();
+            $.ajax({
+                url: '/backend/index.php?c=role&m=editrole',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    name:name,
+                    remark:remark,
+                    id:id
+                },
+                success: function(data){
+                    if(data.state == 0){
+                        $('#exampleModal').on('show.bs.modal', function (event) {
+                            var modal = $(this)
+                            modal.find('control-label').text('成功')
+                        })
+                        location.reload()
+                    }else{
+                        $('#exampleModal').on('show.bs.modal', function (event) {
+                            var modal = $(this)
+                            modal.find('control-label').text('修改失败')
+
+                        })
+                    }
+                },
+                error: function(){
+
+                }
+            })
+        })
+        // $("input[name='xxx']").val();
+        $('#add-form-submit').on('click',function () {
+            var name = $('#add-form input[name="name"]').val();
+            var remark = $('#add-form input[name="remark"]').val();
+            $.ajax({
+                url: 'http://180.76.103.247:8081/backend/index.php?c=role&m=addrole',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    name:name,
+                    remark:remark,
+                },
+                success: function(data){
+                    console.log(data);
+                    if(data.state == 0){
+                        alert('新增成功');
+                        location.reload()
+                    }
+                },
+                error: function(){
+
+                }
+            })
+        })
+    })
+</script>
+</body>
+
+</html>

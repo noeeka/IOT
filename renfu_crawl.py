@@ -64,7 +64,7 @@ def get_FileCreateTime(filePath):
 # 连接数据库服务
 connection = pymysql.connect(host='127.0.0.1',
                              user='root',
-                             password='root',
+                             password='figbot123',
                              db='kangkang',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
@@ -79,6 +79,7 @@ try:
         client = Client(url, doctor=doctor)
         # 获取诊断报告服务（包含诊断信息，病人信息和病例）
         raw = client.service.GetReport_RF('83e0df25fdc5f539abf89cca69e773f7')
+
         for t in eval(raw):
             http = urllib3.PoolManager()
             r = http.request('GET', "http://www.medtmt.net:8090/upload" + str(t['REPORT_FILE_PATH']))
@@ -118,30 +119,50 @@ try:
                     medical_name = t['MEDHISTORY']['illHis']
 
                     # 插入既往病史服务
-                    cursor.execute("INSERT INTO `medical_history` SET `medical_name`='" + str(medical_name) + "'")
-                    connection.commit()
-                    medical_history_id = getLastId(cursor)
+                    try:
+                        cursor.execute("INSERT INTO `medical_history` SET `medical_name`='" + str(medical_name) + "'")
+                        connection.commit()
+                        medical_history_id = getLastId(cursor)
+                    except:
+                        print("INSERT INTO `medical_history` SET `medical_name`='" + str(medical_name) + "'")
 
                     # 插入现病史服务
-                    cursor.execute("INSERT INTO `medical_current` SET `case`='" + str(
-                        t['MEDHISTORY']['ill']) + "',`hospital`='" + str(
-                        t['MEDHISTORY']['treatSite']) + "',`datetime`=" + str(
-                        t['MEDHISTORY']['treatTime']) + ",`content`='" + str(
-                        t['MEDHISTORY']['checkCon']) + "',`method`='" + str(
-                        t['MEDHISTORY']['treatWay']) + "',`medicine`='" + str(t['MEDHISTORY']['medUsed']) + "'")
-                    connection.commit()
-                    medical_current_id = getLastId(cursor)
+                    try:
+                        cursor.execute("INSERT INTO `medical_current` SET `case`='" + str(
+                            t['MEDHISTORY']['ill']) + "',`hospital`='" + str(
+                            t['MEDHISTORY']['treatSite']) + "',`datetime`=" + str(
+                            t['MEDHISTORY']['treatTime']) + ",`content`='" + str(
+                            t['MEDHISTORY']['checkCon']) + "',`method`='" + str(
+                            t['MEDHISTORY']['treatWay']) + "',`medicine`='" + str(t['MEDHISTORY']['medUsed']) + "'")
+                        connection.commit()
+                        medical_current_id = getLastId(cursor)
+                    except:
+                        print("INSERT INTO `medical_current` SET `case`='" + str(
+                            t['MEDHISTORY']['ill']) + "',`hospital`='" + str(
+                            t['MEDHISTORY']['treatSite']) + "',`datetime`=" + str(
+                            t['MEDHISTORY']['treatTime']) + ",`content`='" + str(
+                            t['MEDHISTORY']['checkCon']) + "',`method`='" + str(
+                            t['MEDHISTORY']['treatWay']) + "',`medicine`='" + str(t['MEDHISTORY']['medUsed']) + "'")
 
-                    cursor.execute(
-                        "INSERT INTO `base_case` SET `patient_info_id`=" + str(patient_id) + ",`project`='" + str(
+                    # 插入基础病例表
+                    try:
+                        cursor.execute(
+                            "INSERT INTO `base_case` SET `patient_info_id`=" + str(patient_id) + ",`project`='" + str(
+                                t['TASK_REPORT']) + "',`medical_history_id`=" + str(
+                                medical_history_id) + ",`medical_current_id`=" + str(
+                                medical_current_id) + ",`personal_history`='" + personal_history + "',`obsterical_history`='" + str(
+                                obsterical_history) + "',`family_history`='" + str(family_history) + "'")
+                        connection.commit()
+                    except:
+                        print("INSERT INTO `base_case` SET `patient_info_id`=" + str(patient_id) + ",`project`='" + str(
                             t['TASK_REPORT']) + "',`medical_history_id`=" + str(
                             medical_history_id) + ",`medical_current_id`=" + str(
                             medical_current_id) + ",`personal_history`='" + personal_history + "',`obsterical_history`='" + str(
                             obsterical_history) + "',`family_history`='" + str(family_history) + "'")
-                    connection.commit()
                 except:
                     print(sql_patient)
 
+            # 获取患者相关信息服务
             patient_info_sql = "SELECT * FROM `patient_info` WHERE `customer_no`='" + str(t['NO']) + "'"
             cursor.execute(patient_info_sql)
             result_patient_info = cursor.fetchone()
@@ -169,8 +190,7 @@ try:
                     cursor.execute(
                         "INSERT INTO `image_info` SET `batch_id`=" + str(batch_id) + ",`patient_info_id`=" + str(
                             result_patient_info['id']) + ",`taketime`=" + str(
-                            get_FileCreateTime(str(int(time.mktime(time.strptime(str(t['COMMIT_TIME']),
-                                                                                 "%Y/%m/%d %H:%M:%S")))) + "/" + file)) + ",`filepath`='" + str(
+                            get_FileCreateTime(str(int(time.mktime(time.strptime(str(t['COMMIT_TIME']),"%Y/%m/%d %H:%M:%S")))) + "/" + file)) + ",`filepath`='" + str(
                             str(int(
                                 time.mktime(time.strptime(str(t['COMMIT_TIME']), "%Y/%m/%d %H:%M:%S"))))) + "/" + str(
                             file) + "'")

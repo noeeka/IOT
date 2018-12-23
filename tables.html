@@ -101,10 +101,18 @@
                     <!--</ul>-->
                     <!--</div>-->
                     <!--</li>-->
-                    <li><a href="tables.html" class="active"><i class="lnr lnr-dice"></i> <span>设备列表</span></a></li>
+                    <!--<li><a href="tables.html" class="active"><i class="lnr lnr-dice"></i> <span>设备列表</span></a></li>-->
                     <!--<li><a href="typography.html" class=""><i class="lnr lnr-text-format"></i>-->
                     <!--<span>Typography</span></a></li>-->
                     <!--<li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Icons</span></a></li>-->
+                    <ul class="nav">
+                        <li><a href="users.html"><i class="glyphicon glyphicon-user"></i> <span>用户列表</span></a></li>
+                        <li><a href="role.html"  class="active"><i class="glyphicon glyphicon-tag"></i> <span>角色管理</span></a></li>
+                        <li><a href="departments.html"><i class="glyphicon glyphicon-tasks"></i> <span>部门管理</span></a></li>
+                        <li><a href="devices.html"><i class="lnr lnr-dice"></i> <span>设备管理</span></a></li>
+                        <li><a href="map.html"><i class="glyphicon glyphicon-globe"></i> <span>设备地图</span></a></li>
+                        <li><a href="statistic.html"><i class="glyphicon glyphicon-align-left"></i> <span>信息统计</span></a></li>
+                    </ul>
                 </ul>
             </nav>
         </div>
@@ -166,7 +174,7 @@
     <div class="clearfix"></div>
     <footer>
         <div class="container-fluid">
-            <p class="copyright">Copyright &copy; 2018.Menlo Tech.</p>
+            <p class="copyright" v-on:click="onChange">Copyright &copy; 2018.Menlo Tech.</p>
         </div>
     </footer>
 </div>
@@ -187,8 +195,8 @@
             devices: []
         },
         created: function () {
-            let that = this
-            axios.get('http://192.168.139.128/jinggai/backend/index.php', {}).then(function (response) {
+           	let that = this
+            axios.get('http://192.168.1.254/iot/backend/index.php', {}).then(function (response) {
                 that.devices = response.data.devices;
                 if (response.data.pageSize == 1) {
                     $(".pagination").hide();
@@ -204,7 +212,12 @@
                     console.log(error);
                 });
         },
-        methods: {}
+        methods: {
+			onChange:function(){
+				alert("'ddddd");
+			}
+
+        }
     })
 
 </script>

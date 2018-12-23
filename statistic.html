@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>数据统计</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/vendor/linearicons/style.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet" href="assets/css/demo.css">
+    <!-- GOOGLE FONTS -->
+    <script src="assets/vendor/jquery/jquery.js"></script>
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+    <style>
+        .content {
+            min-height: 250px;
+            padding: 15px;
+            margin-right: auto;
+            margin-left: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .row {
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        .col-lg-3 {
+            width: 25%;
+            float: left;
+        }
+        .bg-aqua   {
+            background-color: #00c0ef !important;
+        }
+        .bg-yellow {
+            background-color: #f39c12 !important;
+        }
+        .bg-red {
+            background-color: #dd4b39 !important;
+        }
+        .bg-green {
+            background-color: #CCCCCC !important;
+        }
+        .small-box>.inner {
+            padding: 10px;
+        }
+        .small-box h3, .small-box p {
+            z-index: 5;
+            color: #ffffff;
+        }
+        .small-box h3 {
+            font-size: 38px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+            white-space: nowrap;
+            padding: 0;
+        }
+        .box.box-primary {
+            border-top-color: #3c8dbc;
+        }
+        .box {
+            position: relative;
+            border-radius: 3px;
+            background: #ffffff;
+            border-top: 3px solid #d2d6de;
+            margin-bottom: 20px;
+            width: 100%;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        }
+        .box-header.with-border {
+            border-bottom: 1px solid #f4f4f4;
+        }
+        .box-header {
+            color: #444;
+            display: block;
+            padding: 10px;
+            position: relative;
+        }
+
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="brand" style="padding:0px 30px;">
+            <a href="index.html"><img src="assets/img/logo.jpg" alt="Klorofil Logo"
+                                      class="img-responsive logo" style="width:200px;height:75px;"></a>
+        </div>
+        <div class="container-fluid">
+            <div class="navbar-btn">
+                <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+            </div>
+            <div id="navbar-menu">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png"
+                                                                                        class="img-circle" alt="Avatar">
+                            <span>{{user_info.name}}</span>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+    <!-- LEFT SIDEBAR -->
+    <div id="sidebar-nav" class="sidebar">
+        <div class="sidebar-scroll">
+            <nav>
+                <ul class="nav">
+                    <li v-if="user_info.privilege ==1"><a href="users.html"><i class="glyphicon glyphicon-user"></i> <span>用户列表</span></a></li>
+                    <li v-if="user_info.privilege ==1"><a href="role.html"><i class="glyphicon glyphicon-tag"></i> <span>角色管理</span></a></li>
+                    <li v-if="user_info.privilege ==1"><a href="departments.html"><i class="glyphicon glyphicon-tasks"></i> <span>部门管理</span></a></li>
+                    <li><a ><i class="lnr lnr-dice"></i><span>智能井盖</span></a>
+                        <ul class="nav">
+                            <li><a href="devices.html"><i class="lnr lnr-dice"></i> <span>设备管理</span></a></li>
+                            <li><a href="map.html"><i class="glyphicon glyphicon-globe"></i> <span>设备地图</span></a></li>
+                            <li><a href="statistic.html" class="active"><i class="glyphicon glyphicon-align-left"></i> <span>信息统计</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a ><i class="lnr lnr-dice"></i> <span>智能光交箱</span></a>
+                        <ul class="nav">
+                            <li><a ><i class="lnr lnr-dice"></i> <span>信息概览</span></a></li>
+                            <li><a ><i class="glyphicon glyphicon-globe"></i> <span>光交箱电子地图</span></a></li>
+                            <li><a ><i class="glyphicon glyphicon-align-left"></i> <span>光交箱报警日志</span></a></li>
+                            <li><a ><i class="glyphicon glyphicon-align-left"></i> <span>光交箱操作管理</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a ><i class="lnr lnr-dice"></i> <span>智能门禁</span></a>
+                        <ul class="nav">
+                            <li><a ><i class="lnr lnr-dice"></i> <span>信息概览</span></a></li>
+                            <li><a ><i class="glyphicon glyphicon-align-left"></i> <span>门禁报警日志</span></a></li>
+                            <li><a ><i class="glyphicon glyphicon-align-left"></i> <span>门禁操作管理</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a ><i class="lnr lnr-dice"></i> <span>远程抄表</span></a>
+                        <ul class="nav">
+                            <li><a ><i class="lnr lnr-dice"></i> <span>信息概览</span></a></li>
+                            <li><a ><i class="glyphicon glyphicon-align-left"></i> <span>抄表操作管理</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END LEFT SIDEBAR -->
+    <!-- MAIN -->
+
+    <div class="gailanpart" style="min-width: 890px;float: left;min-height: 600px;margin-left: 300px;margin-top: 100px;">
+        <section class="content-header">
+            <h1>
+                仪表盘
+            </h1>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner" id="shuju">
+                            <h3>3</h3>
+                            <p>设备总数</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-yellow">
+                        <div class="inner" id="shuju4">
+                            <h3>3</h3>
+                            <p>设备在线数量</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-red">
+                        <div class="inner" id="shuju2">
+                            <h3>262</h3>
+                            <p>报警总次数</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-green">
+                        <div class="inner" id="shuju1">
+                            <h3>3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</h3>
+                            <p>已同步通讯&nbsp;&nbsp;未同步通讯</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 图的区域 -->
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-md-6">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">数据详细分类图</h3>
+                            <div class="box-tools pull-right">
+
+                            </div>
+                        </div>
+                        <div class="box-body chart-responsive">
+                            <div id="main2" style="width: 780px; height: 275px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;" _echarts_instance_="ec_1541055248174"><div style="position: relative; overflow: hidden; width: 780px; height: 275px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas data-zr-dom-id="zr_0" width="780" height="275" style="position: absolute; left: 0px; top: 0px; width: 780px; height: 275px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <!--&lt;!&ndash;柱状图  通讯设备图&ndash;&gt;-->
+                <!--<div class="col-md-6">-->
+                    <!--<div class="box box-primary">-->
+                        <!--<div class="box-header with-border">-->
+                            <!--<h3 class="box-title">数据详细分类图</h3>-->
+                            <!--<div class="box-tools pull-right">-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="box-body chart-responsive">-->
+                            <!--<div id="main4" style="width: 780px; height: 275px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;" _echarts_instance_="ec_1541055248174"><div style="position: relative; overflow: hidden; width: 780px; height: 275px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas data-zr-dom-id="zr_0" width="780" height="275" style="position: absolute; left: 0px; top: 0px; width: 780px; height: 275px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!-- 饼图 -->
+                <div class="col-md-6" style="padding-bottom: 25px;">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">设备分类</h3>
+                            <div class="box-tools pull-right">
+
+                            </div>
+                        </div>
+                        <div class="box-body chart-responsive">
+                            <div id="main" style="width: 780px; height: 250px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;" _echarts_instance_="ec_1541055248172"><div style="position: relative; overflow: hidden; width: 780px; height: 250px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas data-zr-dom-id="zr_0" width="780" height="250" style="position: absolute; left: 0px; top: 0px; width: 780px; height: 250px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- AREA CHART -->
+                    <div class="box box-danger">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">报警数据分类图</h3>
+                            <div class="box-tools pull-right">
+
+                            </div>
+                        </div>
+                        <div class="box-body chart-responsive">
+                            <div id="main3" style="width: 780px; height: 275px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;" _echarts_instance_="ec_1541055248175"><div style="position: relative; overflow: hidden; width: 780px; height: 275px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas data-zr-dom-id="zr_0" width="780" height="275" style="position: absolute; left: 0px; top: 0px; width: 780px; height: 275px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s; background-color: rgba(50, 50, 50, 0.7); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px/21px &quot;Microsoft YaHei&quot;; padding: 5px; left: 456px; top: 187px;">访问来源 <br>防拆报警 : 69 (26.34%)</div></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 饼图 -->
+                <div class="col-md-6">
+                    <div class="box box-danger">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">报警分类的报警次数</h3>
+                            <div class="box-tools pull-right">
+
+                            </div>
+                        </div>
+                        <div class="box-body chart-responsive">
+                            <div id="main1" style="width: 780px; height: 250px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;" _echarts_instance_="ec_1541055248173"><div style="position: relative; overflow: hidden; width: 780px; height: 250px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas data-zr-dom-id="zr_0" width="780" height="250" style="position: absolute; left: 0px; top: 0px; width: 780px; height: 250px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="assets/vendor/vue/vue.min.js"></script>
+    <script src="assets/vendor/vue/axios.min.js"></script>
+    <script src="assets/scripts/klorofil-common.js"></script>
+
+    <script src="assets/scripts/echarts.common.min.js"></script>
+    <script>
+
+        var vm = new Vue({
+            el: '#wrapper',
+            data: {
+                site: "设备列表",
+                user_info: []
+            },
+            created: function () {
+                let that = this
+                axios.get(url + "?c=user&m=getuser", {}).then(function (response) {
+                    console.log(response);
+                    that.user_info = response.data.ret;
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            methods: {
+            }
+        })
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        var myChart1 = echarts.init(document.getElementById('main1'));
+        var myChart2 = echarts.init(document.getElementById('main2'));
+        var myChart3 = echarts.init(document.getElementById('main3'));
+        // var myChart4 = echarts.init(document.getElementById('main4'));
+        // 设备分类详细数据分析
+        var option = {
+            // title: {
+            //     text: '设备分类',
+            //     textStyle: {
+            //         // fontWeight: 'normal',//标题颜色
+            //         // color: '#fff'
+            //     },
+            //     subtext: '详细统计分类',
+            //     x: 'center'
+            // },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['已同步通信', '未同步通信']
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: [],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ],
+            color: ['#336600','#AE0000']
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+
+        // 报警条形图
+        var option1;
+        option1 = {
+            // title: {
+            //     text: '报警分类的报警次数',
+            //     textStyle: {
+            //         // fontWeight: 'normal',//标题颜色
+            //         // color: '#fff'
+            //     },
+            // },
+            tooltip: {},
+            legend: {
+                data: ['次数']
+            },
+            xAxis: {
+                data: ["报警总次数","防拆报警", "温度报警", "电压报警"]
+            },
+            yAxis: {},
+            series: [{
+                // name: '次数',
+                type: 'bar',
+                data: [],
+                itemStyle: {
+                    //通常情况下：
+                    normal: {
+                        //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+                        color: function (params) {
+                            var colorList = ['#dd4b39','#CC3366', '#FF9933', '#FF6633'];
+                            return colorList[params.dataIndex];
+                        }
+                    }
+                }
+            }]
+        };
+        myChart1.setOption(option1);
+
+        // 详细数据条形图
+        var option2;
+        option2 = {
+            // title: {
+            //     // text: '数据详细分类图',
+            //     textStyle: {
+            //         // fontWeight: 'normal',//标题颜色
+            //         // color: '#fff'
+            //     }
+            // },
+            tooltip: {},
+            legend: {
+                data: ['个数']
+            },
+            xAxis: {
+                // data: ["设备总数", "设备在线数量", "报警总次数", "以通讯设备", "未通讯设备"]
+                data: ["设备总数", "设备在线数量", "设备离线数量", "已通讯设备", "未通讯设备"]
+            },
+            yAxis: {},
+            // color: ['red', 'green', 'blue', 'pink', 'deeppink'],//在这里设置colorList，是一个数组，图片颜色会按顺序选取
+            series: [{
+                // name: '个数',
+                type: 'bar',
+                data: [],
+                itemStyle: {
+                    //通常情况下：
+                    normal: {
+                        //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+                        color: function (params) {
+                            // var colorList = ['#00CCFF', '#f39c12', '#dd4b39', '#00a65a', '#336600'];
+                            var colorList = ['#00CCFF', '#f39c12','#FAF0E6', '#AE0000', '#336600'];
+                            return colorList[params.dataIndex];
+                        }
+                    }
+                }
+            }],
+        };
+        myChart2.setOption(option2);
+
+
+        // 报警类型详细数据饼图
+        var option3 = {
+            // title: {
+            //     text: '报警数据分类图',
+            //     textStyle: {
+            //         // fontWeight: 'normal',//标题颜色
+            //         // color: '#fff'
+            //     },
+            //     subtext: '详细统计分类',
+            //     x: 'center'
+            // },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ["防拆报警", "温度报警", "电压报警"]
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: [],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ],
+            color: ['#CC3366', '#FF9933', '#FF6633']
+        };
+        // 使用刚指定的配置项和数据显示图表。
+
+        myChart3.setOption(option3);
+
+        // 获取数据
+        // var hash = 'http://192.168.30.175:33255';
+        var hash = 'http://iot.elcocloud.com:201';
+
+        $.ajax({
+            type: 'GET',
+            url: hash + "/webapi/BIAPI/GETBI",
+            // async: true,
+            success: function (data) {
+                console.log(data);
+
+//              var html = template('test', { data: data });
+//              document.getElementById('shuju').innerHTML = html;
+//
+//              var html = template('test4', { data: data });
+//              document.getElementById('shuju4').innerHTML = html;
+//
+//              var html = template('test2', { data: data });
+//              document.getElementById('shuju2').innerHTML = html;
+//
+//              var html = template('test1', { data: data });
+//              document.getElementById('shuju1').innerHTML = html;
+
+                // var html = template('test3', { data: data });
+                // document.getElementById('shuju3').innerHTML = html;
+
+//              var html = template('test4', { data: data });
+//              document.getElementById('shuju4').innerHTML = html;
+
+                var data2 = [];
+                // data2.push(data.SheBeiZongShu, data.ZaiXianSheBeiShuLiang, data.BaoJingZongShu, data.YiTongXinSheBei, data.WeiTongXinSheBei);
+                data2.push(3, 3, 0,3, 0);
+                // myChart2.showLoading();
+                // console.log(data2)
+                myChart2.setOption({
+                    series: [{
+                        // 根据名字对应到相应的系列
+                        // name: '个数',
+                        data: data2
+                    }]
+                });
+
+                var data1 = [];
+                data1.push(data.BaoJingZongShu,data.FangChaiBaoJingCount, data.WenDuBaoJing, data.DianYaBaoJing);
+                // console.log(data1)
+                // myChart1.showLoading();
+                myChart1.setOption({
+                    series: [{
+                        // 根据名字对应到相应的系列
+                        // name: '次数',
+                        data: data1
+                    }]
+                });
+                var data0 = [
+                    { value: 3, name: '已同步通信' },
+                    { value: 0, name: '未同步通信' }
+                ];
+                // console.log(data0);
+                // data.push();
+                myChart.setOption({
+                    series: [
+                        {
+                            name: '访问来源',
+                            data: data0
+                        }
+                    ]
+                });
+                // myChart.showLoading();
+                // myChart3.showLoading();
+
+                // 填入数据
+
+                var data3 = [
+                    { value: data.FangChaiBaoJingCount, name: '防拆报警' },
+                    { value: data.WenDuBaoJing, name: '温度报警' },
+                    { value: data.DianYaBaoJing, name: '电压报警' },
+                ]
+                // console.log(data3);
+                myChart3.setOption({
+                    series: [
+                        {
+                            name: '访问来源',
+                            data: data3
+                        }
+                    ]
+                });
+
+            }
+        })
+
+    </script>
+</body>
+</html>
+
+

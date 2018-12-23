@@ -1,7 +1,9 @@
 <?php
 session_start();
+header("Access-Control-Allow-Origin: * ");
+
 /**
- * CodeIgniter
+ * CodeIgniter 
  *
  * An open source application development framework for PHP
  *
